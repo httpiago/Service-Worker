@@ -1,0 +1,14 @@
+html, :root {
+    --font-style: 'Roboto Condensed';
+}
+* {
+    margin: 0px;
+}
+body {
+    background-color: #FFF;
+    font-family: val(--font-style);
+    font-size: 16px;
+    line-height: 1.5;
+    overflow-y: scrol;
+    color: #333;
+}

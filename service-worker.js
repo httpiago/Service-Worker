@@ -2,7 +2,7 @@
  * 
  * https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/?hl=pt-br
  */
-const version = 1.0;
+const version = 1.0; // Mude o número da versão quando precisar atualizar os caches
 
 
 /** Evento que é acionado quando a instalação do service worker é iniciada
@@ -16,7 +16,6 @@ const version = 1.0;
  * https://developers.google.com/web/fundamentals/primers/service-workers/#instalar_um_service_worker
  */
 self.addEventListener('install', function (event) {
-	// Perform install steps
 	
 	// Lista de caches obrigatórios pra o funcionamento do site em modo ofiline!
 	window.MAIN_CACHE_NAME = 'offline_cache_version_' + version;
@@ -71,7 +70,7 @@ self.addEventListener('install', function (event) {
  */
 self.addEventListener('activate', function (event) {
 	
-	// Listar no console todos os clientes (sites abertos) no navegador, apenas para depuração
+	// Listar no console todos os clientes abertos no navegador, apenas para depuração
 	self.clients.matchAll({
 		includeUncontrolled: true
 	})
@@ -89,7 +88,6 @@ self.addEventListener('activate', function (event) {
 	 * O código a seguir faz um loop que percorre todos os caches do service worker,
 	 * excluindo os que não estão definidos na lista de permissões do cache.
 	*/
-	
 	const cache_white_list = [ ...MAIN_CACHE_NAME ];
 	
 	// O método "waitUntil" recebe uma promessa que faz o service worker esperar
@@ -113,7 +111,7 @@ self.addEventListener('activate', function (event) {
 		.then(function () {
 			
 			// Instalado com sucesso!
-			console.log(`[ServiceWorker] version ${version} activate, now ready to handle fetches!`);
+			console.log('[ServiceWorker] Version ' + version + ' activate, now ready to handle fetches!');
 			
 			// Forçar todos os clientes usarem a nova versão do service worker
 			// console.log('[ServiceWorker] Claiming clients for new version'), self.clients.claim();
@@ -126,7 +124,7 @@ self.addEventListener('activate', function (event) {
 
 
 /** 
- * Esse método examina a solicitação e encontra todos os resultados armazenados em qualquer um dos
+ * Esse evento examina as solicitações e encontra todos os resultados armazenados em qualquer um dos
  * caches criados pelo service worker. Se tivermos uma resposta correspondente, retornaremos o valor do cache.
  * Caso contrário, retornaremos o resultado de uma chamada para fetch,
  * que criará uma solicitação de rede e retornará os dados se algo for recuperado do servidor.
@@ -141,7 +139,7 @@ self.addEventListener('fetch', function (event) {
 		caches.match(event.request)
 		.then(function (cache) {
 			
-			// Se tiver cacheado, retornar o valor salvo, caso contrário, fazer uma nova solicitação.			
+			// Se tiver cacheado, retornar o valor salvo, caso contrário, fazer uma solicitação.			
 			return cache || fetch(event.request);
 			
 		})
@@ -149,7 +147,7 @@ self.addEventListener('fetch', function (event) {
 	);
 	
 	
-	// Exemplo de cache cumulativo de páginas, todas as págginas são solicitadas normalmente e
+	// Exemplo de cache cumulativo de páginas, todas as páginas são solicitadas normalmente e
 	// guardadas em cache mas quando ocorrer um erro retornar a versão salva no cache
 	/*
 	if (event.request.mode === 'navigate') {

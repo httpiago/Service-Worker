@@ -21,8 +21,8 @@ self.addEventListener('install', function (event) {
 	window.MAIN_CACHE_NAME = 'offline_cache_version_' + version;
 	var urls_to_cache = [
 		'/',
-		'/styles/styles.css',
-		'/script/main.js'
+		'/styles.css',
+		'/main.js'
 	];
 	
 	

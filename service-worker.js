@@ -4,6 +4,7 @@
  */
 const version = 1.0; // Mude o número da versão quando precisar atualizar os caches
 
+var MAIN_CACHE_NAME;
 
 /** Evento que é acionado quando a instalação do service worker é iniciada
  * 
@@ -18,7 +19,7 @@ const version = 1.0; // Mude o número da versão quando precisar atualizar os c
 self.addEventListener('install', function (event) {
 	
 	// Lista de caches obrigatórios pra o funcionamento do site em modo ofiline!
-	window.MAIN_CACHE_NAME = 'offline_cache_version_' + version;
+	MAIN_CACHE_NAME = 'offline_cache_version_' + version;
 	var urls_to_cache = [
 		'/',
 		'/styles.css',

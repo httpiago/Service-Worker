@@ -71,7 +71,7 @@ self.addEventListener('activate', function (event) {
 			// Forçar todas as outras páginas abertas no navegador a usarem a nova versão do service worker
 			.then(() => self.clients.claim())
 
-			.then(() => consoe.log(logColor, `Versão ${version} ativada, pronto para processar solicitações!`))
+			.then(() => console.log(logColor, `Versão ${version} ativada, pronto para processar solicitações!`))
 
 		);
 });

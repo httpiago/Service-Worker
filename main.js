@@ -10,17 +10,14 @@ if ( 'serviceWorker' in navigator ) {
 		navigator.serviceWorker.register('service-worker.js')
 		.then(function (registration) {
 			
-			// Registration was successful
-			console.log('ServiceWorker registration successful with scope: ', registration.scope);
-			
 			// Forçar o navegador a atualizar o service worker manualmente, por exemplo se um usuário fica muito tempo sem recarregar a página.
       // Usar esse comando só é necessário caso você atualize seu worker frequentemente e seu site é single page.
 			// registration.update();
 			
 		}).catch(function (err) {
 			
-			// registration failed :(
-			console.log('ServiceWorker registration failed: ', err);
+			// Registration failed :(
+			console.error('[ServiceWorker] Falha durante a instalação do novo SW: ', err);
 			
 		});
 		

@@ -107,3 +107,14 @@ self.addEventListener('fetch', function (event) {
   }
 });
 
+
+/**
+ * Evento que recebe mensagens dos clientes.
+ * 
+ * http://craig-russell.co.uk/2016/01/29/service-worker-messaging.html
+ */
+self.addEventListener('message', function (event) {
+	
+	console.log(logColor, `Received message: ${event.data}`);
+
+});

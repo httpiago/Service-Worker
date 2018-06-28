@@ -1,7 +1,8 @@
 // Nome dos dois tipos de caches usados nessa versão do service worker.
 // Mude o número para 2, 2.1, etc, quando você precisar atualizar os caches.
 // OBS: a mudança do número fará com que todos os navegadores instalem de novo o SW.
-const PRECACHE = 'precache-v' + 1;
+const version  = 1;
+const PRECACHE = 'precache-v' + version;
 const PROGRESSIVE_CACHE = 'progressive-cache';
 
 // Lista de todos os arquivos fundamentais para o funcionamento offline do website.
@@ -12,6 +13,11 @@ const PRECACHE_URLS = [
   'main.js'
 ];
 
+// Variáveis de cores para ser usada no console
+var successColor = '\x1b[32m[ServiceWorker] %s\x1b[0m',
+	errorColor = '\x1b[31m[ServiceWorker] %s\x1b[0m',
+	infoColor = '\x1b[33m[ServiceWorker] %s\x1b[0m',
+	logColor = '\033[30m[ServiceWorker] %s\x1b[0m';
 
 /**
  * O evento 'install' é acionado quando a instalação do service worker é iniciada
@@ -31,7 +37,9 @@ self.addEventListener('install', function (event) {
 			.then(cache => cache.addAll(PRECACHE_URLS))
 			// Ativar o novo service worker assim que instalado.
 			// Normalmente ele esperaria o antigo worker não esteja mais controlando nenhum cliente.
-      .then(self.skipWaiting())
+			.then(self.skipWaiting())
+
+			.then(() => console.log(successColor, `Versão ${version} instalada com sucesso com o scopo:`, self.location.origin))
   );
 });
 
@@ -54,7 +62,7 @@ self.addEventListener('activate', function (event) {
 		caches.keys()
 			// Fazer a limpeza dos caches antigos
 			.then((cacheNames) => {
-				return cacheNames.filter((cacheName) => !currentCaches.includes(cacheName));
+				return cacheNames.filter((cacheName) => currentCaches.includes(cacheName) === false);
 			})
 			.then((cachesToDelete) => {
 				// Remover os caches antigos
@@ -62,6 +70,9 @@ self.addEventListener('activate', function (event) {
 			})
 			// Forçar todas as outras páginas abertas no navegador a usarem a nova versão do service worker
 			.then(() => self.clients.claim())
+
+			.then(() => consoe.log(logColor, `Versão ${version} ativada, pronto para processar solicitações!`))
+
 		);
 });
 
@@ -95,3 +106,4 @@ self.addEventListener('fetch', function (event) {
     );
   }
 });
+

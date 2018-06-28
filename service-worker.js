@@ -66,7 +66,7 @@ self.addEventListener('activate', function (event) {
 			// Forçar todas as outras páginas abertas no navegador a usarem a nova versão do service worker
 			.then(() => self.clients.claim())
 
-			.then(() => console.log(`Versão ${version} ativada e pronta para processar solicitações!`))
+			.then(() => console.log(`[ServiceWorker] Versão ${version} ativada e pronta para processar solicitações!`))
 
 		);
 });
@@ -110,6 +110,6 @@ self.addEventListener('fetch', function (event) {
  */
 self.addEventListener('message', function (event) {
 	
-	console.log(`Received message: ${event.data}`);
+	console.log(`[ServiceWorker] Received message: ${event.data}`);
 
 });

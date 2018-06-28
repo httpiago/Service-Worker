@@ -13,11 +13,6 @@ const PRECACHE_URLS = [
   'main.js'
 ];
 
-// Variáveis de cores para ser usada no console
-var successColor = '\x1b[32m[ServiceWorker] %s\x1b[0m',
-	errorColor = '\x1b[31m[ServiceWorker] %s\x1b[0m',
-	infoColor = '\x1b[33m[ServiceWorker] %s\x1b[0m',
-	logColor = '\033[30m[ServiceWorker] %s\x1b[0m';
 
 /**
  * O evento 'install' é acionado quando a instalação do service worker é iniciada
@@ -39,7 +34,7 @@ self.addEventListener('install', function (event) {
 			// Normalmente ele esperaria o antigo worker não esteja mais controlando nenhum cliente.
 			.then(self.skipWaiting())
 
-			.then(() => console.log(successColor, `Versão ${version} instalada com sucesso com o scopo:`, self.location.origin))
+			.then(() => console.log(`%c[ServiceWorker] Versão ${version} instalada com sucesso com o scopo: ${self.location.origin}`, 'color: Green'))
   );
 });
 
@@ -71,7 +66,7 @@ self.addEventListener('activate', function (event) {
 			// Forçar todas as outras páginas abertas no navegador a usarem a nova versão do service worker
 			.then(() => self.clients.claim())
 
-			.then(() => console.log(logColor, `Versão ${version} ativada, pronto para processar solicitações!`))
+			.then(() => console.log(`Versão ${version} ativada e pronta para processar solicitações!`))
 
 		);
 });
@@ -115,6 +110,6 @@ self.addEventListener('fetch', function (event) {
  */
 self.addEventListener('message', function (event) {
 	
-	console.log(logColor, `Received message: ${event.data}`);
+	console.log(`Received message: ${event.data}`);
 
 });
